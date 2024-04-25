@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "@/styles/globals.sass";
 import Router from 'next/router';
 import { useState, useEffect } from 'react';
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 
 const Loading = () => {
   const [loading, setLoading] = useState(false);
@@ -34,7 +35,14 @@ const Loading = () => {
     };
   }, []);
 
-  return loading ? <div className="loading">加載中...</div> : null;
+  return loading ? <div className="loading">
+    <Player
+      autoplay
+      loop
+      src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+      style={{ height: '300px', width: '300px' }}
+    />
+  </div> : null;
   // return (
   //   <div className="loading">
   //     加載中...
