@@ -8,7 +8,20 @@ const Loading = () => {
 
   useEffect(() => {
     const handleStart = (url) => url !== Router.asPath && setLoading(true);
-    const handleComplete = (url) => url === Router.asPath && setLoading(false);
+
+    // const handleStart = (url) => {
+    //   if (url !== Router.asPath) {
+    //     setLoading(true);
+    //   }
+    // };
+
+    const handleComplete = (url) => {
+      if (url === Router.asPath) {
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000); // 延遲 3000 毫秒，即 3 秒後執行
+      }
+    };
 
     Router.events.on('routeChangeStart', handleStart);
     Router.events.on('routeChangeComplete', handleComplete);
