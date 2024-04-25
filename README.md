@@ -54,3 +54,22 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   2. 使用 Router.events.on 方法註冊 handleComplete 到 routeChangeComplete 和 routeChangeError 事件。
 7. 最後，使用 useEffect 的返回函數來進行清理工作，從路由事件系統中移除這些事件處理器。
 8. 組件的返回值根據 loading 的狀態條件性地渲染一個 div 元素，如果 loading 為 true，則顯示加載中的文本，否則不渲染任何內容。
+
+## 加上三秒
+1. 特地在結束前硬加三秒
+  ```javascript
+    const handleComplete = (url) => {
+      if (url === Router.asPath) {
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000); // 延遲 3000 毫秒，即 3 秒後執行
+      }
+    };
+  ```
+2. 如果不要可以改成這句
+  ```javascript
+  const handleComplete = (url) => url === Router.asPath && setLoading(false);
+  ```
+
+## 加入 lottiefiles 動畫
+1. [參考網址](https://docs.lottiefiles.com/lottie-player/components/lottie-react)
