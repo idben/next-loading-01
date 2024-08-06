@@ -43,33 +43,20 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## 簡單的載入畫面處理
 1. 在 _app.js 建立一個 Loading function，會輸入載入的 div
 2. 在原本 Component 的使用前，使用 Loading
-3. 在 Loading 中使用 useState 來設定 loading 的狀態 true/false，這個會控制畫面的顯示與否
-4. 使用 useEffect 在掛載時運行，處理 Next.js 路由事件相關的邏輯
-5. 在 useEffect 中，定義了三個事件處理器：
+3. 使用 Loading 可以傳入展示時間；如果有傳入，那即時不需要 loading 也會硬是顯示動畫
+4. 使用 Loading 要傳入 lottiefiles 的動畫 JSON
+5. 在 Loading 中使用 useState 來設定 loading 的狀態 true/false，這個會控制畫面的顯示與否
+6. 使用 useEffect 在掛載時運行，處理 Next.js 路由事件相關的邏輯
+7. 在 useEffect 中，定義了三個事件處理器：
   1. handleStart: 當路由變化開始時觸發，如果新的 URL 與當前 URL 不同，則將 loading 設置為 true，這意味著開始顯示加載動畫。
   2. handleComplete: 當路由變化完成時觸發，如果新的 URL 與當前 URL 相同，則將 loading 設置為 false，這意味著停止顯示加載動畫。
   3. handleComplete 也被用於處理路由變化錯誤的情況，以確保在任何錯誤發生時停止顯示加載動畫。
-6. 這些處理器被註冊到 Next.js 的路由事件系統：
+8. 這些處理器被註冊到 Next.js 的路由事件系統：
   1. 使用 Router.events.on 方法註冊 handleStart 到 routeChangeStart 事件。
   2. 使用 Router.events.on 方法註冊 handleComplete 到 routeChangeComplete 和 routeChangeError 事件。
-7. 最後，使用 useEffect 的返回函數來進行清理工作，從路由事件系統中移除這些事件處理器。
-8. 組件的返回值根據 loading 的狀態條件性地渲染一個 div 元素，如果 loading 為 true，則顯示加載中的文本，否則不渲染任何內容。
+9. 最後，使用 useEffect 的返回函數來進行清理工作，從路由事件系統中移除這些事件處理器。
+10. 組件的返回值根據 loading 的狀態條件性地渲染一個 div 元素，如果 loading 為 true，則顯示加載中的文本，否則不渲染任何內容。
 
-## 加上三秒
-1. 特地在結束前硬加三秒
-  ```javascript
-    const handleComplete = (url) => {
-      if (url === Router.asPath) {
-        setTimeout(() => {
-          setLoading(false);
-        }, 3000); // 延遲 3000 毫秒，即 3 秒後執行
-      }
-    };
-  ```
-2. 如果不要可以改成這句
-  ```javascript
-  const handleComplete = (url) => url === Router.asPath && setLoading(false);
-  ```
 
 ## 加入 lottiefiles 動畫
 1. [參考網址](https://docs.lottiefiles.com/lottie-player/components/lottie-react)
