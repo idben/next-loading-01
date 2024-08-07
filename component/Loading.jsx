@@ -36,7 +36,8 @@ const Loading = ({time, path}) => {
     };
   }, [time]);
 
-  return loading ? (
+  
+  return time && time !== 0 && loading ? (
     <div className="loading">
       <Player
         autoplay
